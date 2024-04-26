@@ -8,7 +8,6 @@ class Client(models.Model):
 
     def __str__(self):
         return self.client_name
-from django.db import models
 
 class Project(models.Model):
     project_name = models.CharField(max_length=255)

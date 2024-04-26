@@ -6,6 +6,12 @@ from .models import Client, Project
 from .serializers import ClientSerializer, ProjectSerializer
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
+from rest_framework import viewsets
+from .models import User
+from .serializers import UserSerializer
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.views import exception_handler
 
 class ClientViewSet(viewsets.ModelViewSet):
     queryset = Client.objects.all()
@@ -20,11 +26,6 @@ class ProjectViewSet(viewsets.ModelViewSet):
     serializer_class = ProjectSerializer
     permission_classes = [IsAuthenticated]
 
-
-
-    from rest_framework import status
-    from rest_framework.response import Response
-    from rest_framework.views import exception_handler
 
     def perform_create(self, serializer):
         client_id = self.request.data.get('client')
@@ -44,10 +45,6 @@ class ProjectViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
 
-
-from rest_framework import viewsets
-from .models import User
-from .serializers import UserSerializer
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
